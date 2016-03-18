@@ -1,0 +1,4 @@
+settings:
+  discourse-url: http://discourse.example.com
+  group-id: 1234
+  message: You are not whitelisted!
