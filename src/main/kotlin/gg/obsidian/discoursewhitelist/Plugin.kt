@@ -2,6 +2,7 @@ package gg.obsidian.discoursewhitelist
 
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import org.bukkit.ChatColor
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerLoginEvent
@@ -21,7 +22,7 @@ class Plugin : JavaPlugin(), Listener {
 
 
         server.pluginManager.registerEvents(this, this)
-        getCommand("discord").executor = CommandHandler(this)
+        getCommand("discoursewhitelist").executor = CommandHandler(this)
     }
 
     fun reload() {
@@ -36,7 +37,8 @@ class Plugin : JavaPlugin(), Listener {
         if (configuration.GROUP_ID != 0) {
             val discourdGroups = getDiscordGroupIds(e.player.name)
             if (!discourdGroups.contains(configuration.GROUP_ID)) {
-                e.disallow(PlayerLoginEvent.Result.KICK_WHITELIST, configuration.MESSAGE)
+                val message = ChatColor.translateAlternateColorCodes('&', configuration.MESSAGE)
+                e.disallow(PlayerLoginEvent.Result.KICK_WHITELIST, message)
             }
         }
     }
@@ -63,11 +65,11 @@ class Plugin : JavaPlugin(), Listener {
         val bodyString = response.body().string()
         val body = JSONValue.parse(bodyString) as JSONObject
         val user = body["user"] as JSONObject
-        val customGroups = user["custom_groups"] as JSONArray
+        val groups = user["groups"] as JSONArray
 
         val discourseGroups = HashSet<Int>()
 
-        for (g in customGroups) {
+        for (g in groups) {
             val group = g as JSONObject
             val id = group.get("id") as Long
             discourseGroups.add(id.toInt())
