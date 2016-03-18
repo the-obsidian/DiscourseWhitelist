@@ -23,7 +23,7 @@ plugins {
 apply plugin: 'kotlin'
 
 group = 'gg.obsidian'
-version = '1.0.0'
+version = '1.0.1'
 description = """Use Discourse group as a whitelist"""
 ext.url = 'https://github.com/the-obsidian/DiscordBridge'
 
