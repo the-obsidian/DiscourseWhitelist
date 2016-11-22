@@ -35,8 +35,8 @@ class Plugin : JavaPlugin(), Listener {
     @EventHandler
     fun onLogin(e: PlayerLoginEvent) {
         if (configuration.GROUP_ID != 0) {
-            val discourdGroups = getDiscordGroupIds(e.player.name)
-            if (!discourdGroups.contains(configuration.GROUP_ID)) {
+            val disourseGroups = getDiscourseGroupIds(e.player.name)
+            if (!disourseGroups.contains(configuration.GROUP_ID)) {
                 val message = ChatColor.translateAlternateColorCodes('&', configuration.MESSAGE)
                 e.disallow(PlayerLoginEvent.Result.KICK_WHITELIST, message)
             }
@@ -53,7 +53,7 @@ class Plugin : JavaPlugin(), Listener {
         configuration.load()
     }
 
-    private fun getDiscordGroupIds(username: String): Set<Int> {
+    private fun getDiscourseGroupIds(username: String): Set<Int> {
         val url = configuration.DISCOURSE_URL + "/users/" + username + ".json"
         val request = Request.Builder().url(url).get().build()
         val response = httpClient.newCall(request).execute()
