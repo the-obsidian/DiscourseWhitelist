@@ -5,6 +5,7 @@ Uses a Discourse group as the whitelist for a Spigot server.
 ## Requirements
 
 * Java 8
+* Spigot 1.12
 
 ## Installation
 
